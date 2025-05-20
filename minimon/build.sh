@@ -1,0 +1,1 @@
+gcc -Iinclude main.c core/collector.c core/analyzer.c -o build/minimon && echo "Build succeeded." || echo "Build failed."
