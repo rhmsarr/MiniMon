@@ -27,3 +27,15 @@ CPUUsage get_cpu_usage_percent(CPUStatsRaw a, CPUStatsRaw b) {
 
     return usage;
 }
+
+
+MemoryUsage get_memory_usage(MemStatsRaw mem_stats){
+    MemoryUsage mem;
+
+    mem.total_mem = (float)mem_stats.total_mem / 1024.0 / 1024.0;  // kB → GB
+    mem.used_mem = (float)(mem_stats.total_mem - mem_stats.available_mem) / 1024.0 / 1024.0;
+    mem.total_swap = (float)mem_stats.total_swap / 1024.0 / 1024.0;
+    mem.swapped_mem = (float)mem_stats.used_swap / 1024.0 / 1024.0;
+
+    return mem;
+}

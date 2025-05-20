@@ -6,6 +6,17 @@
 
 //here call the functions depending on the user's input arguments
 int main(){
+
+    MemoryUsage memory;
+
+    MemStatsRaw mem;
+    mem = get_mem_stats_raw();
+    memory = get_memory_usage(mem);
+
+    printf("Total RAM: %.1f GB\nUsed: %.1f GB\nSwap: %.1f GB / %.1f GB\n", memory.total_mem, 
+        memory.used_mem, memory.swapped_mem, memory.total_swap);
+
+
    return 0;
 }
 

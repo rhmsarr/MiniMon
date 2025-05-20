@@ -5,12 +5,6 @@
 
 #define MAX_SIZE 100
 
-typedef struct{
-    float usage;
-    float user;
-    float system;
-    float idle; 
-} CPUUsage;
 
 typedef struct {
     unsigned long user;
@@ -23,7 +17,15 @@ typedef struct {
     unsigned long steal;
 } CPUStatsRaw;
 
+typedef struct{
+    float total_mem;
+    float available_mem;
+    float total_swap;
+    float used_swap;
+} MemStatsRaw;
 
 CPUStatsRaw get_cpu_stats_raw();
+
+MemStatsRaw get_mem_stats_raw();
 
 #endif

@@ -65,3 +65,50 @@ CPUStatsRaw get_cpu_stats_raw(){
 
     return cpu_1;
 }
+
+MemStatsRaw get_mem_stats_raw(){
+    FILE *fileptr;
+    char stat_file[] = "/proc/meminfo";
+    
+    fileptr = fopen(stat_file,"r" );
+    
+    //checking the file opens properly
+    if(fileptr == NULL)
+    {
+        printf("The %s file could not be opened. The program will terminate.", stat_file);
+        MemStatsRaw empty = {0};
+        return empty;
+
+    }
+    char line[MAX_SIZE];
+    MemStatsRaw memory_stats;
+
+    fgets(line, sizeof(line), fileptr);
+    //first token is the column header, not needed
+    char* token = strtok((line), " \n");
+    token = strtok(NULL, " \n");
+    memory_stats.total_mem = atof(token);
+    //moving on to the next line, second token
+    fgets(line, sizeof(line), fileptr);
+    fgets(line, sizeof(line), fileptr);
+    token = strtok(line, " \n");
+    token = strtok(NULL, " \n");
+    memory_stats.available_mem = atof(token);
+
+
+    for(int i = 0; i<12; i++)
+        fgets(line, sizeof(line), fileptr);
+    
+
+    token = strtok(line, " \n");
+    token = strtok(NULL, " \n");
+    memory_stats.total_swap = atof(token);
+
+    fgets(line, sizeof(line), fileptr);
+    token = strtok(line, " \n");
+    token = strtok(NULL, " \n");
+    memory_stats.used_swap = atof(token);
+
+    return memory_stats;
+    
+}
