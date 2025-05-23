@@ -4,7 +4,7 @@
 #include<unistd.h>
 
 
-//here call the functions depending on the user's input arguments
+//here call the cli with the args
 int main(){
 
     MemoryUsage memory;
@@ -15,6 +15,19 @@ int main(){
 
     printf("Total RAM: %.1f GB\nUsed: %.1f GB\nSwap: %.1f GB / %.1f GB\n", memory.total_mem, 
         memory.used_mem, memory.swapped_mem, memory.total_swap);
+
+    DiskUsageStatsRaw du = get_disk_usage("/");
+    printf("Mount: %s\nTotal: %lu MB\nUsed: %lu MB\nFree: %lu MB\nUsage: %.1f%%\n",
+        du.mount_point,
+        du.total_kb / 1024,
+        du.used_kb / 1024,
+        du.free_kb / 1024,
+        du.used_percent);
+
+    DiskIOStats io = get_disk_io_stats("sda");
+printf("Device: %s\nReads: %lu\nWrites: %lu\n", io.device, io.reads, io.writes);
+
+
 
 
    return 0;

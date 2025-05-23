@@ -20,4 +20,9 @@ typedef struct
 CPUUsage get_cpu_usage_percent(CPUStatsRaw a, CPUStatsRaw b);
 
 MemoryUsage get_memory_usage(MemStatsRaw mem_stats);
+
+int compare_by_ram(const void *a, const void *b);
+
+void sort_processes_by_ram(ProcessInfo *list, int count);
+
 #endif

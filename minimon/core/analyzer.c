@@ -39,3 +39,14 @@ MemoryUsage get_memory_usage(MemStatsRaw mem_stats){
 
     return mem;
 }
+
+
+int compare_by_ram(const void *a, const void *b) {
+    ProcessStatsRaw *p1 = (ProcessStatsRaw *)a;
+    ProcessStatsRaw *p2 = (ProcessStatsRaw *)b;
+    return (p2->memory - p1->memory);
+}
+
+void sort_processes_by_ram(ProcessStatsRaw *list, int count) {
+    qsort(list, count, sizeof(ProcessStatsRaw), compare_by_ram);
+}

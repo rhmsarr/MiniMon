@@ -24,8 +24,39 @@ typedef struct{
     float used_swap;
 } MemStatsRaw;
 
+typedef struct {
+    char mount_point[128];
+    unsigned long total_kb;
+    unsigned long used_kb;
+    unsigned long free_kb;
+    float used_percent;
+} DiskUsageStatsRaw;
+
+typedef struct {
+    char device[32];
+    unsigned long reads;
+    unsigned long writes;
+} DiskIOStats;
+
+typedef struct {
+    int PID;
+    char name[50];
+    char state;
+    float memory;
+
+
+
+} ProcessStatsRaw;
+
+
+
+
 CPUStatsRaw get_cpu_stats_raw();
 
 MemStatsRaw get_mem_stats_raw();
+
+DiskUsageStatsRaw get_disk_usage(const char* path);
+
+DiskIOStats get_disk_io_stats(const char* device_name);
 
 #endif
